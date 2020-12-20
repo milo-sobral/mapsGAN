@@ -6,18 +6,18 @@ import csv
 import time
 
 
-IMAGE_PATH = os.path.abspath('../data/images/')
+IMAGE_PATH = os.path.abspath('../data/raw_roadmap/')
 COORDINATES_PATH = os.path.abspath("../data/coord.csv")
 KEY_PATH = os.path.abspath("./googleKey.secret")
-URL = 'https://maps.googleapis.com/maps/api/staticmap?center={},{}&zoom={}&size={}x{}&maptype=satellite&key={}'
+URL = 'https://maps.googleapis.com/maps/api/staticmap?center={},{}&zoom={}&size={}x{}&maptype=roadmap&key={}&style=element:labels%7Cvisibility:off&style=feature:administrative.land_parcel%7Cvisibility:off&style=feature:administrative.neighborhood%7Cvisibility:off'
 
 
 def loadSaveImage(coords, number, zoom, satellite=True, size=640):
-    saveName = '{}_{}_satellite' if satellite else '{}_{}_map'
+    saveName = '{}_{}_satellite' if satellite else '{}_{}_roadmap'
     saveName = saveName.format(number, zoom)
     savePath = os.path.join(IMAGE_PATH, saveName)
     with open(KEY_PATH, 'r') as myfile:
-        key = myfile.read()
+        key = myfile.read().replace('\n', '')
 
     print("retrieving image {}...".format(number))
     urllib.request.urlretrieve(URL.format(coords[0], coords[1], zoom, size, size, key), savePath)
@@ -39,11 +39,11 @@ def citiesFromCoords(waitTime, startFrom=0):
         coords = list(coords_csv)
 
     for index, coordPair in enumerate(coords[startFrom:]):
-        loadSaveImage(coords[index + startFrom], index + startFrom, 12)
+        loadSaveImage(coords[index + startFrom], index + startFrom, 12, False)
         print("wating {} seconds...".format(waitTime))
         time.sleep(waitTime)
 
 
 if __name__ == "__main__":
     # scrapeCitiesCenterWikipedia('https://en.wikipedia.org/wiki/List_of_United_States_cities_by_population')
-    citiesFromCoords(3, 69)
+    citiesFromCoords(3)
