@@ -2,9 +2,9 @@ from PIL import Image
 import os
 
 
-IMAGE_PATH = os.path.abspath('../data/raw_satellite/')
-DATASET_PATH = os.path.abspath('../data/dataset_satellite/big')
-DATASET_PATH_SMALL = os.path.abspath('../data/dataset_satellite/small')
+IMAGE_PATH = os.path.abspath('../data/raw_roadmap/')
+DATASET_PATH = os.path.abspath('../data/dataset_roadmap/big')
+DATASET_PATH_SMALL = os.path.abspath('../data/dataset_roadmap/small')
 REMOVE_TEXT_PAD = 20
 DIVISION_NUMS = 4
 ROTATIONS = [Image.ROTATE_90, Image.ROTATE_180, Image.ROTATE_270]
