@@ -234,8 +234,9 @@ def generate_and_save_images(model, epoch, test_input):
   plt.show()
 
 def pushbullet_message(title, body):
+    
     msg = {"type": "note", "title": title, "body": body}
-    TOKEN = 'o.UvYxXNezxtkijbrwZRwFU2V5l3Cyp7B7'
+    TOKEN = ''
     resp = requests.post('https://api.pushbullet.com/v2/pushes',
                          data=json.dumps(msg),
                          headers={'Authorization': 'Bearer ' + TOKEN,
